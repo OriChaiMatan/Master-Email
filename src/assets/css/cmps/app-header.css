@@ -1,0 +1,47 @@
+.app-header {
+    background: #f2f6fc;
+    color: black;
+
+}
+
+.app-logo{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "h i";
+    gap: 5px;
+}
+
+.app-logo h1{
+    font-size: 30px;
+    grid-area: h;
+}
+
+.app-logo img{
+    grid-area: i;
+    width: 40px;
+    height: 40px;
+}
+
+.app-header section.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.app-header h1.logo {
+    flex-grow: 1;
+    font-weight: 600;
+}
+
+.app-header .back {
+    flex-grow: 1;
+}
+
+.app-header nav a:not(:last-child) {
+    margin-right: 10px;
+}
+
+.app-header section.container>section {
+    flex-grow: 1;
+}

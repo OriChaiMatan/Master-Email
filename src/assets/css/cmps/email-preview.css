@@ -1,0 +1,117 @@
+
+.email-preview {
+    display: grid;
+    justify-content: space-between;
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas: "s e a";
+    gap: 10px;
+    padding: 5px;
+    border-bottom: 1px solid #ccc;
+}
+
+
+.email-preview.unread {
+    background-color: white; 
+    font-weight: bold;
+}
+
+
+.email-preview.read {
+    background-color: #f2f6fc;
+    font-weight: normal;
+}
+
+.star-button {
+    grid-area: s;
+    margin-right: 10px;
+    position: relative;
+    border: none;
+    background: none;
+    color: #c4c7c5;
+    padding: 0;
+    margin: 0;
+    width: auto;
+}
+
+.star-button:hover::before {
+    content: ""; /* Necessary for the pseudo-element */
+    position: absolute;
+    top: 50%; /* Adjust as needed */
+    left: 50%; /* Adjust as needed */
+    transform: translate(-50%, -50%);
+    width: 30px; /* Adjust size of the circle */
+    height: 30px; /* Adjust size of the circle */
+    border-radius: 50%;
+    background-color: rgba(152, 152, 152, 0.5); /* Adjust color and opacity of the circle */
+    z-index: 1; /* Ensure the circle appears above the icon */
+  }
+
+  .email-preview.starred .star-button {
+    color: rgb(222, 185, 0); 
+}
+
+.email-content {
+    display: grid;
+    grid-area: e;
+    gap: 20px;
+    grid-template-columns: 18rem 1fr; 
+    grid-template-areas: "sf su";
+    border-bottom: none;
+}
+
+.send-from {
+    grid-area: sf;
+    text-align: left; 
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.subject {
+    grid-area: su;
+    text-align: left; 
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.sent-time {
+    grid-area: a;
+    text-align: right; 
+}
+
+
+.action-buttons {
+    grid-area: a;
+    display: flex;
+}
+
+.action-buttons button {
+    margin-left: 5px;
+}
+
+.email-preview:hover .sent-time {
+    display: none; 
+}
+
+.delete-button{
+    position: relative;
+    border: none;
+    background: none;
+    padding: 0;
+    margin: 0;
+    width: auto;
+}
+
+.delete-button:hover::before {
+    content: ""; /* Necessary for the pseudo-element */
+    position: absolute;
+    top: 50%; /* Adjust as needed */
+    left: 50%; /* Adjust as needed */
+    transform: translate(-50%, -50%);
+    width: 30px; /* Adjust size of the circle */
+    height: 30px; /* Adjust size of the circle */
+    border-radius: 50%;
+    background-color: rgba(152, 152, 152, 0.5); /* Adjust color and opacity of the circle */
+    z-index: 1; /* Ensure the circle appears above the icon */
+  }
