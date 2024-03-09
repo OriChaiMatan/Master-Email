@@ -13,16 +13,12 @@ export function App() {
     return (
         <Router>
             <section className='main-app'>
-                <AppHeader />
-                <main className='container'>
-                    <Routes>
-                        <Route path="/" element={<Home />} />
-                        <Route path="/about" element={<AboutUs />} />
-                        <Route path="/email" element={<EmailIndex />} />
+                <Routes>
+                    <Route path="/" element={<EmailIndex />} >
                         <Route path="/email/newemail" element={<EmailCompose />} />
-                        <Route path="/email/:emailId" element={<EmailDetails />} />
-                    </Routes>
-                </main>
+                    </Route>
+                    <Route path="/email/:emailId" element={<EmailDetails />} />
+                </Routes>
             </section>
         </Router>
     )

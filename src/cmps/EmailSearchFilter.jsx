@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
+import { MdSearch } from "react-icons/md";
 
-export function EmailFilter({ filterBy, onSetFilter }) {
+
+export function EmailSearchFilter({ filterBy, onSetFilter }) {
     const [filterByToEdit, setFilterByToEdit] = useState(filterBy)
 
     useEffect(() => {
@@ -23,25 +25,21 @@ export function EmailFilter({ filterBy, onSetFilter }) {
         } else {
             setFilterByToEdit(prevFilter => ({
                 ...prevFilter,
-                [name]: name === 'isRead' ? (value === 'true') : value,
+                [name]: name === 'subject' ? value : prevFilter[name]
             }));
         }
     }
-    
-    
 
     return <form className="email-filter" onSubmit={onSubmitFilter} >
-            <select
-                id="isRead"
-                value={filterByToEdit.isRead}
-                name="isRead"
+        <label>
+            <input
+                className="search-bar"
+                type="text"
+                placeholder="Search mail"
+                value={filterByToEdit.subject}
+                name="subject"
                 onChange={handleChange}
-            >
-                <option value="">All</option>
-                <option value="false">Unread</option>
-                <option value="true">Read</option>
-            </select>
-
-        
+            />
+        </label>
     </form>
 }

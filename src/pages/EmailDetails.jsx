@@ -28,7 +28,7 @@ export function EmailDetails() {
     if (!email) return <div>Loading..</div>
     return (
         <section className="email-details">
-            <Link to="/email"> <FaArrowLeft /> </Link>
+            <Link to="/"> <FaArrowLeft /> </Link>
             <h2>Subject: {email.subject}</h2>
             <h4> {email.from}</h4>
             <h4>{email.body}</h4>

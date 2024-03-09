@@ -1,15 +1,40 @@
 .email-index{
-    background: white;
     overflow-y: scroll;
-    border-radius: 10px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas: 
+    "hl hr"
+    "s e";
+}
+
+.header-left-container{
+    grid-area: hl;
+    justify-content: left;
+}
+
+.header-right-container{
+    grid-area: hr;
+    justify-self: left;
+    align-self: center;
 }
 
 .side-bar-container{
-    margin: 10px;
+    grid-area: s;
+    background-color: #f2f6fc;
+    
 }
 
 .email-list-container {
+    grid-area: e;
     height: 400px; /* Set a fixed height for the container */
     overflow-y: auto; /* Enable vertical scrollbar */
+    background: white;
+    border-radius: 10px;
+    padding: 0;
+}
+
+.list-filter-container{
+    padding: 10px;
 }
 

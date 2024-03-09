@@ -1,0 +1,9 @@
+.new-mail-btn{
+    height: 56px;
+    width: 144px;
+    background-color: #c2e7ff;
+    border-radius: 16px;
+    border: none;
+    font-size: 14px;
+    font-weight: bold;
+}
