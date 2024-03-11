@@ -7,3 +7,28 @@
     font-size: 14px;
     font-weight: bold;
 }
+
+.email-folder-list {
+    padding: 10px;
+}
+
+.folder-list {
+    list-style-type: none;
+    padding: 5px;
+}
+
+.folder-list li a {
+    text-decoration: none; /* Remove underline */
+    color: black; /* Default link color */
+    padding: 2px;
+    border-top-right-radius: 5px; 
+    border-bottom-right-radius: 5px;
+}
+
+.folder-list li a:hover {
+    background-color: lightgray; /* Background color on hover */
+}
+
+.unread-count {
+    font-weight: bold;
+}

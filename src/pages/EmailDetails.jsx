@@ -3,7 +3,6 @@ import { useNavigate, useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa6";
 
-
 import { emailService } from "../services/email.service"; 
 
 export function EmailDetails() {
@@ -20,7 +19,7 @@ export function EmailDetails() {
             const email = await emailService.getById(params.emailId)
             setEmail(email)
         } catch (err) {
-            navigate('/email')
+            navigate('/')
             console.log('Error in loademail', err)
         }
     }
@@ -28,7 +27,7 @@ export function EmailDetails() {
     if (!email) return <div>Loading..</div>
     return (
         <section className="email-details">
-            <Link to="/"> <FaArrowLeft /> </Link>
+            <Link to="/inbox"> <FaArrowLeft /> </Link>
             <h2>Subject: {email.subject}</h2>
             <h4> {email.from}</h4>
             <h4>{email.body}</h4>

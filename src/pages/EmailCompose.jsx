@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
 import { Link, useNavigate, useOutletContext, useParams } from "react-router-dom"
+
 import { emailService } from "../services/email.service"
+import { eventBusService, showErrorMsg, showSuccessMsg } from "../services/event-bus.service"
 
 import { IoIosResize } from "react-icons/io"
 import { CgCompressRight } from "react-icons/cg"
@@ -19,6 +21,11 @@ export function EmailCompose() {
     if (emailId) loadEmail()
   }, [])
 
+  useEffect(() => {
+    const saveTimeout = setTimeout(saveDraft, 5000);
+    return () => clearTimeout(saveTimeout);
+  }, [email])
+
   async function loadEmail() {
     try {
       const email = await emailService.getById(emailId)
@@ -35,13 +42,23 @@ export function EmailCompose() {
   }
 
   async function onSaveEmail(ev) {
-    ev.preventDefault()
+    ev.preventDefault();
     try {
-      if (email.id) await context.onUpdateEmail(email)
-      else await context.onAddEmail(email)
-      navigate('/')
-    } catch {
-      console.log('Had issues saving email', err);
+      if (email.id) await context.onUpdateEmail({...email, sentAt: emailService.getCurrentTime()});
+      else await context.onAddEmail({...email, sentAt: emailService.getCurrentTime()});
+      navigate('/');
+      showSuccessMsg('Email sent successfully');
+    } catch (err) {
+      console.log('Had issues sending email', err);
+      showErrorMsg('Could not send email');
+    }
+  }
+
+  async function saveDraft() {
+    try {
+      if (!email.sentAt) await context.onUpdateEmail(email);
+    } catch (err) {
+      console.log('Had issues saving draft', err);
     }
   }
 
@@ -53,17 +70,17 @@ export function EmailCompose() {
           <div className="email-compose-action">
             <button className="minimized-normal" onClick={() => setIsMinimized(!isMinimized)}>{isMinimized ? "-" : "_"}</button>
             <button className="compose-size" onClick={() => {
-    if (!isMinimized) {
-        setIsResized(!isResized);
-    } else {
-        setIsMinimized(false); // Ensure modal is not minimized when resizing
-        setIsResized(!isResized);
-    }
-}}>
-    {isResized ? <IoIosResize /> : <CgCompressRight />}
-</button>
+              if (!isMinimized) {
+                setIsResized(!isResized);
+              } else {
+                setIsMinimized(false); // Ensure modal is not minimized when resizing
+                setIsResized(!isResized);
+              }
+            }}>
+              {isResized ? <IoIosResize /> : <CgCompressRight />}
+            </button>
 
-            <Link to="/"><button className="close-btn"><IoCloseSharp /></button></Link>
+            <Link to="/inbox"><button className="close-btn"><IoCloseSharp /></button></Link>
           </div>
         </div>
         {!isMinimized && (

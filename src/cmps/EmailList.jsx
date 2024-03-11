@@ -1,6 +1,6 @@
 import { EmailPreview } from "./EmailPreview";
 
-export function EmailList({ emails, onRemoveEmail, onUpdateEmail }) {
+export function EmailList({ emails, onRemoveEmail, onUpdateEmail, onMoveToTrash }) {
     function onStarEmail(email) {
         const newEmail = { ...email, isStarred: !email.isStarred };
         onUpdateEmail(newEmail);
@@ -17,7 +17,7 @@ export function EmailList({ emails, onRemoveEmail, onUpdateEmail }) {
         <ul className="email-list">
             {emails.map((email) => (
                 <li key={email.id} >
-                    <EmailPreview email={email} onDelete={onRemoveEmail} onStar={() => onStarEmail(email)} onMarkAsRead={() => onMarkAsRead(email)} />
+                    <EmailPreview email={email} onDelete={onRemoveEmail} onStar={() => onStarEmail(email)} onMarkAsRead={() => onMarkAsRead(email)} onMoveToTrash={() => onMoveToTrash(email)} />
                 </li>
             ))}
         </ul>
