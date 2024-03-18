@@ -1,0 +1,13 @@
+.map {
+    height: 200px;
+    /* Adjust the height as needed */
+    width: 400px;
+    /* Adjust the width as needed */
+    border: 1px solid #ccc;
+    /* Add a border for better visualization */
+    border-radius: 8px;
+    /* Add border radius for a rounded appearance */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

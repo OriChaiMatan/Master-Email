@@ -1,34 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
+import { useForm } from '../customHooks/useForm';
+
 
 export function EmailFilter({ filterBy, onSetFilter }) {
-    const [filterByToEdit, setFilterByToEdit] = useState(filterBy)
-
-    useEffect(() => {
-        onSetFilter(filterByToEdit)
-    }, [filterByToEdit])
+    const [filterByToEdit, handleChange] = useForm(filterBy, onSetFilter)
 
     function onSubmitFilter(ev) {
         ev.preventDefault();
         console.log('filterByToEdit', filterByToEdit);
         onSetFilter(filterByToEdit);
     }
-
-    function handleChange(ev) {
-        const { value, name } = ev.target;
-        if (value === "") {
-            setFilterByToEdit(prevFilter => ({
-                ...prevFilter,
-                [name]: "",
-            }));
-        } else {
-            setFilterByToEdit(prevFilter => ({
-                ...prevFilter,
-                [name]: name === 'isRead' ? (value === 'true') : value,
-            }));
-        }
-    }
-    
-    
 
     return <form className="email-filter" onSubmit={onSubmitFilter} >
             <select

@@ -12,9 +12,9 @@ export function App() {
         <Router>
             <section className='main-app'>
                 <Routes>
-                    <Route path='/' element={<Home/>}/>
+                    <Route path='/' element={<Home />} />
                     <Route path="/:folder" element={<EmailIndex />} >
-                        <Route path="/:folder/email/newemail/:emailId?" element={<EmailCompose />} />
+                        <Route path="/:folder/compose/:emailId?" element={<EmailCompose />} />
                         <Route path="/:folder/email/:emailId" element={<EmailDetails />} />
                     </Route>
                 </Routes>

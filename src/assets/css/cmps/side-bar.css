@@ -8,27 +8,60 @@
     font-weight: bold;
 }
 
-.email-folder-list {
-    padding: 10px;
-}
-
 .folder-list {
+    display: flex;
+    flex-direction: column;
     list-style-type: none;
-    padding: 5px;
-}
+    padding: 0;
+  }
 
-.folder-list li a {
+  .folder-list li a {
     text-decoration: none; /* Remove underline */
-    color: black; /* Default link color */
-    padding: 2px;
-    border-top-right-radius: 5px; 
-    border-bottom-right-radius: 5px;
 }
 
-.folder-list li a:hover {
-    background-color: lightgray; /* Background color on hover */
-}
+.item-content {
+    align-items: center;
+    display: flex;
+    height: 32px;
+    padding: 0 12px 0 26px;
+    transition: margin .15s cubic-bezier(0.4, 0, 0.2, 1), padding .15s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 0 16px 16px 0;
+    font-weight: 400;
+    justify-content: space-between;
+  }
 
-.unread-count {
+  .item-content:hover {
+    text-decoration: none;
+    background-color: rgba(32, 33, 36, 0.059);
+  }
+  
+  .active {
+    background-color: #d2e3fc;
+    color: #001d35;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .icon-item {
+    width: 20px;
+    height: 20px;
+    margin-right: 16px;
+  }
+
+  .item-folder{
+    display: flex;
+    align-items: center;
+  }
+
+  .count-folder{
+    font-size: 13px;
+  }
+
+  .bold{
     font-weight: bold;
-}
+  }
+  
+  .name-item{
+    font-size: .875rem;
+  }
+

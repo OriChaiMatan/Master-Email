@@ -26,7 +26,7 @@ export function EmailPreview({ email, onDelete, onStar, onMarkAsRead, onMoveToTr
                         <button className="delete-button" onClick={() => onDelete(email.id)}><MdDelete /></button>
                     )}
                     {email.sentAt === null && ( 
-                        <Link to={`email/newemail/${email.id}`}>Edit</Link>
+                        <Link to={`compose/${email.id}`}>Edit</Link>
                     )}
 					<button onClick={onMarkAsRead}>Mark as Read</button>
                 </div>

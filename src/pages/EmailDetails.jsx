@@ -3,7 +3,9 @@ import { useNavigate, useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa6";
 
-import { emailService } from "../services/email.service"; 
+import { emailService } from "../services/email.service";
+import { GoogleMap } from "../cmps/GoogleMap"; 
+
 
 export function EmailDetails() {
     const [email, setEmail] = useState(null)
@@ -30,7 +32,8 @@ export function EmailDetails() {
             <Link to="/inbox"> <FaArrowLeft /> </Link>
             <h2>Subject: {email.subject}</h2>
             <h4> {email.from}</h4>
-            <h4>{email.body}</h4>
+            <pre>{email.body}</pre>
+            {email.senderLocation && <GoogleMap location={email.senderLocation} />}
         </section>
     )
 }

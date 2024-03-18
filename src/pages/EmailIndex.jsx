@@ -16,13 +16,14 @@ export function EmailIndex() {
     const [searchParams, setSearchParams] = useSearchParams()
     const params = useParams()
     const [emails, setEmails] = useState(null)
-    const [filterBy, setFilterBy] = useState(emailService.getDefaultFilter())
+    const [filterBy, setFilterBy] = useState(emailService.getFilterFromParams(searchParams))
     const [unreadCount, setUnreadCount] = useState(0)
 
     useEffect(() => {
+        console.log('filterBy',filterBy);
         setSearchParams(filterBy)
         loadEmails()
-        console.log(searchParams);
+        //console.log('filterBy',filterBy);
     }, [filterBy, params.folder])
 
     function onSetFilter(fieldsToUpdate) {
@@ -31,6 +32,7 @@ export function EmailIndex() {
 
     async function loadEmails() {
         try {
+            console.log(filterBy, 'filterBy from load emails');
             const emails = await emailService.query(filterBy, params.folder)
             setEmails(emails)
             const unread = emails.filter(email => !email.isRead).length;
@@ -81,7 +83,6 @@ export function EmailIndex() {
             showSuccessMsg('Email moved to trash successfully');
         }
     }
-    
 
     const { subject, isRead } = filterBy
     return <section className="email-index">
@@ -93,7 +94,7 @@ export function EmailIndex() {
         </div>
         <div className="side-bar-container">
             <nav>
-                <Link to="email/newemail"><button className="new-mail-btn"><HiOutlinePencil />  Compose</button></Link>
+                <Link to="compose"><button className="new-mail-btn" ><HiOutlinePencil />  Compose</button></Link>
             </nav>
             <EmailFolderList unreadCount={unreadCount}/>
         </div>

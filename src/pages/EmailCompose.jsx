@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Link, useNavigate, useOutletContext, useParams } from "react-router-dom"
+import { Link, useNavigate, useOutletContext, useParams, useSearchParams } from "react-router-dom"
 
 import { emailService } from "../services/email.service"
 import { eventBusService, showErrorMsg, showSuccessMsg } from "../services/event-bus.service"
@@ -7,6 +7,7 @@ import { eventBusService, showErrorMsg, showSuccessMsg } from "../services/event
 import { IoIosResize } from "react-icons/io"
 import { CgCompressRight } from "react-icons/cg"
 import { IoCloseSharp } from "react-icons/io5"
+import { GoogleMap } from "../cmps/GoogleMap"
 
 export function EmailCompose() {
   const navigate = useNavigate()
@@ -14,8 +15,10 @@ export function EmailCompose() {
   const { emailId } = useParams()
 
   const [email, setEmail] = useState(emailService.createEmail())
-  const [isMinimized, setIsMinimized] = useState(false);
-  const [isResized, setIsResized] = useState(false);
+  const [isMinimized, setIsMinimized] = useState(false)
+  const [isResized, setIsResized] = useState(false)
+  const [showMap, setShowMap] = useState(false)
+  const [senderLocation, setSenderLocation] = useState(null)
 
   useEffect(() => {
     if (emailId) loadEmail()
@@ -44,9 +47,9 @@ export function EmailCompose() {
   async function onSaveEmail(ev) {
     ev.preventDefault();
     try {
-      if (email.id) await context.onUpdateEmail({...email, sentAt: emailService.getCurrentTime()});
-      else await context.onAddEmail({...email, sentAt: emailService.getCurrentTime()});
-      navigate('/');
+      if (email.id) await context.onUpdateEmail({ ...email, sentAt: emailService.getCurrentTime(), senderLocation });
+      else await context.onAddEmail({ ...email, sentAt: emailService.getCurrentTime(), senderLocation });
+      navigate(-1);
       showSuccessMsg('Email sent successfully');
     } catch (err) {
       console.log('Had issues sending email', err);
@@ -59,6 +62,23 @@ export function EmailCompose() {
       if (!email.sentAt) await context.onUpdateEmail(email);
     } catch (err) {
       console.log('Had issues saving draft', err);
+    }
+  }
+
+  function toggleMapVisibility() {
+    setShowMap(!showMap);
+    if (!showMap) {
+      // Get sender's location
+      navigator.geolocation.getCurrentPosition(
+        position => {
+          const { latitude, longitude } = position.coords;
+          setSenderLocation({ latitude, longitude });
+        },
+        error => {
+          console.error('Error getting location:', error);
+          showErrorMsg('Error getting your location');
+        }
+      );
     }
   }
 
@@ -80,7 +100,7 @@ export function EmailCompose() {
               {isResized ? <IoIosResize /> : <CgCompressRight />}
             </button>
 
-            <Link to="/inbox"><button className="close-btn"><IoCloseSharp /></button></Link>
+            <button className="close-btn" onClick={() => navigate(-1)}><IoCloseSharp /></button>
           </div>
         </div>
         {!isMinimized && (
@@ -89,6 +109,10 @@ export function EmailCompose() {
               <input type="text" className="send-to-input" id="sendTo" name="sendTo" placeholder="Recipients" value={email.sendTo} onChange={handleChange} />
               <input type="text" className="subject-input" id="subject" name="subject" placeholder="Subject" value={email.subject} onChange={handleChange} />
               <textarea className="body-input" id="body" name="body" cols="70" rows="20" value={email.body} onChange={handleChange} ></textarea>
+              <div className="google-map">
+                <button type="button" onClick={toggleMapVisibility}>Share my location</button>
+                {showMap && <GoogleMap />}
+              </div>
               <button className="send-btn">Send</button>
             </div>
           </form>

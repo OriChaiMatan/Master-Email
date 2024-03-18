@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react"
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+
+import inbox from '../assets/imgs/inbox.png'
+import star from '../assets/imgs/starred.png'
+import sent from '../assets/imgs/sent.png'
+import draft from '../assets/imgs/drafts.png'
+import trash from '../assets/imgs/delete.png'
 
 
 export function EmailFolderList({ unreadCount }) {
@@ -9,26 +15,31 @@ export function EmailFolderList({ unreadCount }) {
             name: "inbox",
             title: "Inbox",
             to: "/inbox",
+            imgSrc: inbox,
         },
         {
             name: "starred",
             title: "Starred",
             to: "/starred",
+            imgSrc: star,
         },
         {
             name: "trash",
             title: "Trash",
             to: "/trash",
+            imgSrc: trash,
         },
         {
             name: "sent",
             title: "Sent",
             to: "/sent",
+            imgSrc: sent,
         },
         {
             name: "draft",
             title: "Draft",
             to: "/draft",
+            imgSrc: draft,
         },
     ];
 
@@ -37,8 +48,15 @@ export function EmailFolderList({ unreadCount }) {
             <ul className="folder-list">
                 {folderItems.map((folder) => (
                     <li key={folder.name}>
-                        <Link to={folder.to}>{folder.title}</Link>
-                        {folder.name === 'inbox' && <span className="unread-count">{unreadCount > 0 ? ` ${unreadCount}` : ''}</span>}
+                        <NavLink className="item-content" activeClassName="active" to={folder.to}>
+                            <div className="item-folder">
+                                <span className="icon-item">
+                                    <img src={folder.imgSrc} />
+                                </span>
+                                <span className="name-item">{folder.title}</span>
+                            </div>
+                            {folder.name === 'inbox' && <span className="count-folder">{unreadCount > 0 ? ` ${unreadCount}` : ''}</span>}
+                        </NavLink>
                     </li>
                 ))}
             </ul>
