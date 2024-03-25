@@ -47,11 +47,11 @@ export function EmailFolderList({ unreadCount }) {
         <section className="email-folder-list">
             <ul className="folder-list">
                 {folderItems.map((folder) => (
-                    <li key={folder.name}>
-                        <NavLink className="item-content" activeClassName="active" to={folder.to}>
+                    <li key={folder.name} className={location.pathname === folder.to ? "active" : ""}>
+                        <NavLink className="item-content" to={folder.to}>
                             <div className="item-folder">
                                 <span className="icon-item">
-                                    <img src={folder.imgSrc} />
+                                    <img src={folder.imgSrc} alt={folder.title} />
                                 </span>
                                 <span className="name-item">{folder.title}</span>
                             </div>

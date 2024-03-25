@@ -26,13 +26,13 @@ async function query(filterBy, folder) {
     if (folder) {
         emails = emails.filter(email => {
             if (folder === 'inbox') {
-                return email.sendTo === loggedinUser.email
+                return ((email.sendTo === loggedinUser.email) && (email.removedAt === null))
             }
             if (folder === 'sent') {
                 return ((email.from === loggedinUser.email) && (email.sentAt != null))
             }
             if (folder === 'starred') {
-                return email.isStarred === true
+                return ((email.isStarred === true) && (email.removedAt === null))
             }
             if (folder === 'trash') {
                 return email.removedAt != null
@@ -52,7 +52,7 @@ async function query(filterBy, folder) {
             })
         }
         if (isRead !== "" && isRead !== undefined ) {
-            console.log('isRead', isRead);
+            //console.log('isRead', isRead);
             emails = emails.filter(email =>  email.isRead === isRead )
         }
 
@@ -103,7 +103,7 @@ function getFilterFromParams(searchParams) {
         }
         
     }
-    console.log(filterBy, 'filterby');
+    //console.log(filterBy, 'filterby');
     return filterBy
 }
 

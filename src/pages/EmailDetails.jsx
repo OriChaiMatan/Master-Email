@@ -20,10 +20,23 @@ export function EmailDetails() {
         try {
             const email = await emailService.getById(params.emailId)
             setEmail(email)
+            onMarkAsRead(email)
         } catch (err) {
-            navigate('/')
             console.log('Error in loademail', err)
         }
+    }
+
+    async function onUpdateEmail(email) {
+        try {
+            const updatedEmail = await emailService.save(email)
+        } catch (err) {
+            console.log('Error in onUpdateEmail', err)
+        }
+    }
+
+    function onMarkAsRead(email) {
+        const newEmail = { ...email, isRead: true };
+        onUpdateEmail(newEmail);
     }
 
     if (!email) return <div>Loading..</div>

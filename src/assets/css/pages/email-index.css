@@ -1,40 +1,95 @@
-.email-index{
+.email-index {
     overflow-y: scroll;
     display: grid;
     grid-template-columns: auto 1fr;
     grid-template-rows: auto 1fr;
-    grid-template-areas: 
-    "hl hr"
-    "s e";
+    grid-template-areas:
+        "hl hr"
+        "s e";
 }
 
-.header-left-container{
+.header-left-container {
     grid-area: hl;
     justify-content: left;
 }
 
-.header-right-container{
+.header-right-container {
     grid-area: hr;
-    justify-self: left;
     align-self: center;
 }
 
-.side-bar-container{
+.side-bar-container {
     grid-area: s;
     background-color: #f2f6fc;
-    
+
 }
 
 .email-list-container {
     grid-area: e;
-    height: 400px; /* Set a fixed height for the container */
-    overflow-y: auto; /* Enable vertical scrollbar */
+    height: 400px;
+    /* Set a fixed height for the container */
+    overflow-y: auto;
+    /* Enable vertical scrollbar */
     background: white;
     border-radius: 10px;
     padding: 0;
 }
 
-.list-filter-container{
+.list-filter-container {
     padding: 10px;
 }
 
+.menu-btn {
+    display: none; 
+}
+
+
+
+
+@media only screen and (max-width: 768px) {
+
+    .main-app{
+        background-color: white;
+    }
+
+    .header-right-container {
+        display: flex;
+        justify-content: space-between;
+        gap: 6px;
+    }
+
+    .menu-btn {
+        display: block; 
+        position: relative;
+        border: none;
+        background: none;
+        padding: 0;
+        margin: 0;
+        width: auto;
+    }
+
+    .menu-btn:hover::before {
+        content: ""; /* Necessary for the pseudo-element */
+        position: absolute;
+        top: 50%; /* Adjust as needed */
+        left: 50%; /* Adjust as needed */
+        transform: translate(-50%, -50%);
+        width: 40px; /* Adjust size of the circle */
+        height: 40px; /* Adjust size of the circle */
+        border-radius: 50%;
+        background-color: rgba(152, 152, 152, 0.5); /* Adjust color and opacity of the circle */
+        z-index: 1; /* Ensure the circle appears above the icon */
+      }
+
+    .side-bar-container {
+        display: none;
+    }
+
+    .header-left-container {
+        display: none;
+    }
+
+    .list-filter-container{
+        display: none;
+    }
+}

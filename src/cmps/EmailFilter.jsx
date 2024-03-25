@@ -7,7 +7,7 @@ export function EmailFilter({ filterBy, onSetFilter }) {
 
     function onSubmitFilter(ev) {
         ev.preventDefault();
-        console.log('filterByToEdit', filterByToEdit);
+        //console.log('filterByToEdit', filterByToEdit);
         onSetFilter(filterByToEdit);
     }
 

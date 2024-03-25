@@ -40,7 +40,7 @@ export function EmailCompose() {
 
   function handleChange({ target }) {
     const { value, name } = target;
-    console.log('name:', name, 'value:', value);
+    //console.log('name:', name, 'value:', value);
     setEmail(prevEmail => ({ ...prevEmail, [name]: value }));
   }
 

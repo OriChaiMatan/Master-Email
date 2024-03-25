@@ -1,5 +1,6 @@
-.search-bar{
-    width: 700px;
+.search-bar {
+    width: 100%;
+    max-width: 700px;
     height: 48px;
     border-radius: 30px;
     background-color: #e8efff;
@@ -8,6 +9,22 @@
 }
 
 .search-bar:focus {
-    background-color: white; 
+    background-color: white;
     border: none;
+}
+
+@media only screen and (max-width: 768px) {
+
+    .email-filter {
+        width: 100%;
+    }
+
+    .search-bar {
+        width: 100%;
+        background-color: white;
+        border-radius: 5px;
+        border: 2px solid #ccc;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
 }
