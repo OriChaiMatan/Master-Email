@@ -37,7 +37,7 @@ export function GoogleMap(){
     <div className="map">
       {userLocation && (
         <GoogleMapReact
-          bootstrapURLKeys={{ key: "YOUR_API_KEY" }} 
+          bootstrapURLKeys={{ key: "AIzaSyD1LbNmX9k7PK6OgcGkVkqjWwBY9wc_sYM" }} 
           defaultCenter={defaultCenter}
           defaultZoom={11}
         >
